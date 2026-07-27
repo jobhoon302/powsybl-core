@@ -1,0 +1,19 @@
+{
+  "name": "network-viewer-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal starter project showing how to render a PowSyBl Network Area Diagram with @powsybl/network-viewer-core",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@powsybl/network-viewer-core": "^3.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^5.4.0"
+  }
+}
