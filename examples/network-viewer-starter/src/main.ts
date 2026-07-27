@@ -1,23 +1,25 @@
 import { NetworkAreaDiagramViewer } from '@powsybl/network-viewer-core';
 
-// The viewer renders an SVG + metadata JSON produced by powsybl-diagram.
-// Here we import a sample pair bundled with this starter.
-// `?raw` gives us the SVG as a plain string; the JSON is imported as an object.
-import svgContent from './data/nad-eurostag-tutorial-example1.svg?raw';
-import metadata from './data/nad-eurostag-tutorial-example1_metadata.json';
+// The viewer only displays an SVG + its metadata JSON, both produced by
+// powsybl-diagram (or the powsybl-core NetworkAreaDiagram API).
+// The sample pair lives in `public/data/`, so we load it at runtime with fetch:
+// no bundler-specific import suffix (like `?raw`) and no extra type declarations
+// are required.
+async function renderDiagram(): Promise<void> {
+    const container = document.getElementById('nad-container');
+    if (!container) {
+        throw new Error('Missing #nad-container element');
+    }
 
-const container = document.getElementById('nad-container');
-if (!container) {
-    throw new Error('Missing #nad-container element');
-}
+    const [svgContent, metadata] = await Promise.all([
+        fetch('data/nad.svg').then((response) => response.text()),
+        fetch('data/nad_metadata.json').then((response) => response.json()),
+    ]);
 
-new NetworkAreaDiagramViewer(
-    container,
-    svgContent,
-    metadata,
-    // NadViewerParametersOptions: enable pan/zoom + toolbar buttons.
-    {
+    new NetworkAreaDiagramViewer(container, svgContent, metadata, {
         enableDragInteraction: true,
         addButtons: true,
-    }
-);
+    });
+}
+
+renderDiagram();
