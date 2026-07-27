@@ -1,4 +1,7 @@
 import { NetworkAreaDiagramViewer } from '@powsybl/network-viewer-core';
+// NAD colors (per voltage level) come from CSS classes referenced by the SVG,
+// NOT from the SVG itself. Without this stylesheet the diagram renders colorless.
+import './nad-styles.css';
 
 // The viewer only displays an SVG + its metadata JSON, both produced by
 // powsybl-diagram (or the powsybl-core NetworkAreaDiagram API).

@@ -64,6 +64,26 @@ new NetworkAreaDiagramViewer(
 > Anything placed in `public/` is served from the site root, so `public/data/nad.svg`
 > is fetched as `data/nad.svg`.
 
+## Colors / styling
+
+The NAD colors (one per voltage level) are **not** stored in the SVG. The SVG only
+carries CSS classes such as `nad-vl0to30` / `nad-vl300to500`, and a stylesheet maps
+those classes to a `--nad-vl-color` custom property. Without that stylesheet the
+diagram renders colorless (default/light-grey strokes).
+
+This starter therefore imports a reference stylesheet in `src/main.ts`:
+
+```ts
+import './nad-styles.css';
+```
+
+`src/nad-styles.css` is the reference NAD stylesheet from the powsybl-network-viewer
+demo. Adjust the `--nad-vl-color` values there to recolor voltage levels.
+
+Alternatively, you can generate a **self-contained** SVG from powsybl-diagram /
+powsybl-core with the CSS embedded (CSS location `INSERTED_IN_SVG`); then no external
+stylesheet is needed.
+
 ## Using your own diagram
 
 Replace the two files in `public/data/` with an SVG + metadata JSON pair
