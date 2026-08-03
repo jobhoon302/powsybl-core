@@ -558,6 +558,7 @@ class NodeBreakerTopologyModel extends AbstractTopologyModel {
                 } else {
                     network.getListeners().notifyPropertyRemoved(voltageLevel, INTERNAL_CONNECTION, null);
                 }
+                invalidateCache();
             }
 
             @Override
@@ -578,6 +579,7 @@ class NodeBreakerTopologyModel extends AbstractTopologyModel {
                 });
                 switches.clear();
                 aSwitches.stream().filter(Objects::nonNull).forEach(ss -> network.getListeners().notifyAfterRemoval(ss.getId()));
+                invalidateCache();
             }
         });
     }
